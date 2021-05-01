@@ -154,12 +154,154 @@ Response :
 ## Employee
 
 ### Create Employee
+Request :
+- Method : POST
+- Endpoint : `/api/employees`
+- Header :
+  - Accept : application/json
+  - Content-Type : application/json
+- Body : 
+```json
+{
+  "name": "string",
+  "age": "integer",
+  "position": "string",
+  "companyId": "string"
+}
+```
+Response:
+```json
+{
+  "code": "integer",
+  "status": "string",
+  "data": {
+    "id": "string,unique",
+    "name": "string",
+    "age": "integer",
+    "position": "string",
+    "companyId": "string",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+}
+```
 
 ### Get Employee
-
+Request :
+- Method : GET
+- Endpoint : `/api/employees`
+- Header : 
+  - Accept : application/json
+  
+Response :
+```json
+{
+  "code": "integer",
+  "status": "string",
+  "data": {
+    "id": "string,unique",
+    "name": "string",
+    "age": "integer",
+    "position": "string",
+    "companyId": "string",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+}
+```
 ### Update Employee
-
+Request : 
+- Method : PUT
+- Endpoint : `/api/employees/{idEmployee}`
+- Header :
+  - Accept : application/json
+  - Content-Type : application/json
+- Body :
+```json
+{
+  "name": "string",
+  "age": "integer",
+  "position": "string"
+}
+```
+Response :
+```json
+{
+  "code": "integer",
+  "status": "string",
+  "data": {
+    "id": "string,unique",
+    "name": "string",
+    "age": "integer",
+    "position": "string",
+    "companyId": "string",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+}
+```
 ### Delete Employee
+Request :
+- Method : DELETE
+- Endpoint : `/api/employees/{idEmployee}`
+- Header :
+  - Accept : application/json
+  
+Response :
+```json
+{
+  "code": "integer",
+  "status": "string"
+}
+```
 
 ### List Employee
-
+Request :
+- Method : GET
+- Endpoint : `/api/employees`
+- Header : 
+  - Accept : application/json
+- Query Param
+  - size : integer
+  - page : integer
+  
+Response :
+- Header :
+  - X-Pagination : 
+  ```json
+  {
+    "page": "integer",
+    "size": "integer",
+    "totalPage": "integer",
+    "totalData": "integer",
+    "hasPrevious": "bool",
+    "hasNext": "bool"
+  }
+  ```
+  
+```json
+{
+  "code": "integer",
+  "status": "string",
+  "data": [
+    {
+      "id": "string,unique",
+      "name": "string",
+      "age": "integer",
+      "position": "string",
+      "companyId": "string",
+      "createdAt": "date",
+      "updatedAt": "date"
+    },
+    {
+      "id": "string,unique",
+      "name": "string",
+      "age": "integer",
+      "position": "string",
+      "companyId": "string",
+      "createdAt": "date",
+      "updatedAt": "date"
+    }
+  ]
+}
+```

@@ -6,4 +6,6 @@ import id.learn.web.api.model.CreateCompanyRequest
 interface CompanyService {
 
     fun create(createCompanyRequest: CreateCompanyRequest):CompanyResponse
+
+    fun get(id:String):CompanyResponse
 }

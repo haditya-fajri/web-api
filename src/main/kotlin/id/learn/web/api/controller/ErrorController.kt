@@ -1,5 +1,6 @@
 package id.learn.web.api.controller
 
+import id.learn.web.api.exception.NotFoundException
 import id.learn.web.api.model.WebResponse
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -16,5 +17,14 @@ class ErrorController {
             data = constraintViolationException.message!!
         )
 
+    }
+
+    @ExceptionHandler(value=[NotFoundException::class])
+    fun notFoundHandler(notFoundException: NotFoundException):WebResponse<String>{
+        return WebResponse(
+            code=404,
+            status = "NOT FOUND",
+            data = "Not Found"
+        )
     }
 }

@@ -11,4 +11,6 @@ interface CompanyService {
     fun get(id:String):CompanyResponse
 
     fun update(id:String,updateCompanyRequest: UpdateCompanyRequest):CompanyResponse
+
+    fun delete(id:String)
 }

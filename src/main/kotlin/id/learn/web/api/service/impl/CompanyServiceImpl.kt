@@ -54,6 +54,12 @@ class CompanyServiceImpl(val companyRepository: CompanyRepository,
         return  convertCompanyToCompanyResponse(company)
     }
 
+    override fun delete(id: String) {
+        val company = companyRepository.findByIdOrNull(id) ?: throw NotFoundException()
+
+        companyRepository.delete(company)
+    }
+
     private fun convertCompanyToCompanyResponse(company: Company):CompanyResponse{
         return CompanyResponse(
             id = company.id,

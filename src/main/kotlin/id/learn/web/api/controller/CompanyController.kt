@@ -22,25 +22,35 @@ class CompanyController(val companyService: CompanyService) {
     }
 
     @GetMapping(
-        value= ["/api/companies/{idCompanies}"],
+        value= ["/api/companies/{idCompany}"],
         produces = ["application/json"]
     )
-    fun getCompany(@PathVariable("idCompanies") id:String):WebResponse<CompanyResponse>{
+    fun getCompany(@PathVariable("idCompany") id:String):WebResponse<CompanyResponse>{
         val companyResponse = companyService.get(id)
 
         return responseOk(companyResponse)
     }
 
     @PutMapping(
-        value = ["/api/companies/{idCompanies}"],
+        value = ["/api/companies/{idCompany}"],
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateCompany(@PathVariable("idCompanies") id:String,
+    fun updateCompany(@PathVariable("idCompany") id:String,
                       @RequestBody updateCompanyRequest: UpdateCompanyRequest):WebResponse<CompanyResponse>{
         val companyResponse = companyService.update(id,updateCompanyRequest)
 
         return responseOk(companyResponse)
+    }
+
+    @DeleteMapping(
+        value = ["/api/companies/{idCompany}"],
+        produces = ["application/json"]
+    )
+    fun deleteCompany(@PathVariable("idCompany") id: String):WebResponse<String>{
+        companyService.delete(id)
+
+        return  responseOk("DELETED")
     }
 
     private fun <T> responseOk(data:T):WebResponse<T>{

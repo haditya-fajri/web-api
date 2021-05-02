@@ -2,6 +2,7 @@ package id.learn.web.api.controller
 
 import id.learn.web.api.model.CompanyResponse
 import id.learn.web.api.model.CreateCompanyRequest
+import id.learn.web.api.model.UpdateCompanyRequest
 import id.learn.web.api.model.WebResponse
 import id.learn.web.api.service.CompanyService
 import org.springframework.web.bind.annotation.*
@@ -21,11 +22,23 @@ class CompanyController(val companyService: CompanyService) {
     }
 
     @GetMapping(
-        value= ["/api/companies/{id}"],
+        value= ["/api/companies/{idCompanies}"],
         produces = ["application/json"]
     )
-    fun getCompany(@PathVariable("id") id:String):WebResponse<CompanyResponse>{
+    fun getCompany(@PathVariable("idCompanies") id:String):WebResponse<CompanyResponse>{
         val companyResponse = companyService.get(id)
+
+        return responseOk(companyResponse)
+    }
+
+    @PutMapping(
+        value = ["/api/companies/{idCompanies}"],
+        produces = ["application/json"],
+        consumes = ["application/json"]
+    )
+    fun updateCompany(@PathVariable("idCompanies") id:String,
+                      @RequestBody updateCompanyRequest: UpdateCompanyRequest):WebResponse<CompanyResponse>{
+        val companyResponse = companyService.update(id,updateCompanyRequest)
 
         return responseOk(companyResponse)
     }

@@ -4,6 +4,7 @@ import id.learn.web.api.entity.Company
 import id.learn.web.api.exception.NotFoundException
 import id.learn.web.api.model.CompanyResponse
 import id.learn.web.api.model.CreateCompanyRequest
+import id.learn.web.api.model.UpdateCompanyRequest
 import id.learn.web.api.repository.CompanyRepository
 import id.learn.web.api.service.CompanyService
 import id.learn.web.api.validation.ValidationUtil
@@ -34,6 +35,23 @@ class CompanyServiceImpl(val companyRepository: CompanyRepository,
         val company = companyRepository.findByIdOrNull(id) ?: throw NotFoundException()
 
         return convertCompanyToCompanyResponse(company)
+    }
+
+    override fun update(id: String, updateCompanyRequest: UpdateCompanyRequest): CompanyResponse {
+        validationUtil.validate(updateCompanyRequest)
+
+        val company = companyRepository.findByIdOrNull(id) ?: throw NotFoundException()
+
+        company.apply {
+            name = updateCompanyRequest.name!!
+            address =updateCompanyRequest.address!!
+            country = updateCompanyRequest.country!!
+            updatedAt = Date()
+        }
+
+        companyRepository.save(company)
+
+        return  convertCompanyToCompanyResponse(company)
     }
 
     private fun convertCompanyToCompanyResponse(company: Company):CompanyResponse{
